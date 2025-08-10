@@ -10,7 +10,7 @@ export const errorHandler = (
   const statusCode = err instanceof BaseError ? err.statusCode : 500;
   const message = err.message || "Internal Server Error";
 
-  console.error(`[Error] ${req.method} ${req.url} - ${message}`);
+  console.error(`\x1b[31m[Error]\x1b[0m ${req.method} ${req.url} - ${message}`);
 
   res.status(statusCode).json({
     success: false,
