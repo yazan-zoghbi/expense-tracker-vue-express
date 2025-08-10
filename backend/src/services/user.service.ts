@@ -1,9 +1,11 @@
-import { UserModel } from "../models/user.model.ts";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 import type { LoginDTO, SignupDTO } from "../types/dto/user.dto.ts";
 import type { User } from "../types/entities/user.entity.ts";
-import jwt from "jsonwebtoken";
 import type { TokenPayload } from "../types/domain/payload.ts";
+import { AuthError } from "../errors/AuthError.js";
+import { UserModel } from "../models/user.model.js";
 
 export class UserServices {
   signup = async (dto: SignupDTO): Promise<User> => {
@@ -19,18 +21,27 @@ export class UserServices {
 
     const user = await UserModel.create(userData);
 
+    if (!user) {
+      throw new AuthError(
+        "Signup failed due to invalid data. Please review your input and try again."
+      );
+    }
+
     return user;
   };
 
   login = async (dto: LoginDTO) => {
     const user = (await UserModel.findOne({ username: dto.username })) as User;
 
-    if (!user) throw new Error("User not found!");
+    if (!user) {
+      throw new AuthError("Invalid username or password");
+    }
 
     const isPasswordValid = bcrypt.compareSync(dto.password, user.password);
 
-    if (!isPasswordValid)
-      throw new Error("Check your username or password and try again!");
+    if (!isPasswordValid) {
+      throw new AuthError("Invalid username or password");
+    }
 
     return {
       access_token: user.generateAccessToken(),
