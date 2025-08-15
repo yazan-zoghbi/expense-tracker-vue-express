@@ -236,7 +236,7 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { reactive, ref, defineEmits } from "vue";
 
 import { toast } from "vue-sonner";
