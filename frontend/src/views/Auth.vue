@@ -4,7 +4,7 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from "vue-router";
 import AuthForm from "../components/AuthForm.vue";
 import { useAuth } from "../composables/useAuth";

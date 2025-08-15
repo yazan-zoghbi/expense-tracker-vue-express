@@ -5,6 +5,8 @@ import App from "./App.vue";
 import "vuetify/styles";
 import "@mdi/font/css/materialdesignicons.css";
 
+import "./assets/styles/variables.css";
+
 import { Toaster } from "vue-sonner";
 import "vue-sonner/style.css";
 
