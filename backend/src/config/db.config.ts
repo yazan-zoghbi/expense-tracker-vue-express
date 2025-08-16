@@ -19,7 +19,7 @@ export const dbConnect = async (mongoUrl: string): Promise<void> => {
     await mongoose.connect(mongoUrl, {
       serverSelectionTimeoutMS: 5000,
     });
-  } catch (err) {
+  } catch (err: any) {
     console.error("🚨 Initial DB connection failed:", err.message);
     process.exit(1);
   }

@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
+        "target": "ES2020",
         "module": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "Bundler",
         "strict": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
@@ -10,15 +10,49 @@
         "skipLibCheck": true,
         "outDir": "./dist",
         "declaration": true,
-        "emitDeclarationOnly": true,
+        "emitDeclarationOnly": false,
         "forceConsistentCasingInFileNames": true,
-        "allowImportingTsExtensions": true
+        "allowImportingTsExtensions": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noEmit": false,
+        "baseUrl": "./src",
+        "paths": {
+            "@config/*": [
+                "config/*"
+            ],
+            "@routes/*": [
+                "routes/*"
+            ],
+            "@controllers/*": [
+                "controllers/*"
+            ],
+            "@middleware/*": [
+                "middleware/*"
+            ],
+            "@models/*": [
+                "models/*"
+            ],
+            "@services/*": [
+                "services/*"
+            ],
+            "@types/*": [
+                "types/*"
+            ],
+            "@utils/*": [
+                "utils/*"
+            ]
+        },
     },
-    "include": [
-        "src",
-        "server.ts"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "ts-node": {
+        "compilerOptions": {
+            "module": "ESNext"
+        },
+        "include": [
+            "src",
+        ],
+        "exclude": [
+            "node_modules"
+        ],
+    }
 }

@@ -1,0 +1,22 @@
+:root {
+  /* 🌊 Primary Palette */
+
+  --color-primary: #0077b6; /* Main action color — buttons, links, active nav items */
+  --color-primary-dark: #03045e; /* Deep contrast — headings, text on light backgrounds, dark mode anchor */
+  --color-primary-light: #00b4d8; /* Hover states, secondary buttons, info highlights */
+
+  --color-background: #caf0f8; /* Page background — dashboard canvas, section wrappers */
+  --color-surface: #f8fcff; /* Component surface — cards, modals, drawers, form containers */
+  --color-border: #90e0ef; /* Dividers, outlines, input borders, subtle separators */
+
+  --color-text: #03045e; /* Primary text — headings, body content, labels */
+  --color-text-muted: #4c5c7a; /* Secondary text — hints, descriptions, disabled states */
+
+  /* 🌞 Accent & Feedback */
+
+  --color-accent: #f9c74f; /* Attention grabber — icons, badges, highlights, tooltips */
+  --color-success: #43aa8b; /* Success state — alerts, status indicators, form validation */
+  --color-warning: #f8961e; /* Warning state — caution messages, tooltips, banners */
+  --color-error: #f94144; /* Error state — validation errors, critical alerts, destructive actions */
+  --color-info: #00b4d8; /* Informational tone — alerts, banners, tooltips, secondary emphasis */
+}
