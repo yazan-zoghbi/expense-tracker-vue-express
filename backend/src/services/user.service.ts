@@ -52,8 +52,6 @@ export class UserServices {
   refreshAccessToken = async (token: string) => {
     const decode_payload = jwt.decode(token) as TokenPayload;
 
-    console.log(decode_payload);
-
     const user = await UserModel.findById(decode_payload?._id);
 
     if (!user) throw new Error("User not found!");
