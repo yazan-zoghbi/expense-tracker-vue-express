@@ -11,6 +11,7 @@ import { dirname } from "path";
 import { dbConnect } from "./config/db.config.js";
 import userRouter from "./routes/user.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import expenseRouter from "@routes/expense.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,6 +32,7 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use("/auth", userRouter);
+app.use("/expense", expenseRouter);
 
 app.use(errorHandler);
 
