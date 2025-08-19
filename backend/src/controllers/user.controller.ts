@@ -46,6 +46,14 @@ export class UserController {
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
+      res.cookie("access_token", access_token, {
+        httpOnly: true,
+        secure: true, // HTTPS in production
+        sameSite: "none", // or "None" for cross-origin with HTTPS
+        path: "/", // or more scoped path if you prefer
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+      });
+
       const response: LoginResponse = {
         success: true,
         message: "You logged in successfully",
