@@ -12,8 +12,10 @@ dotenv.config({ path: path.resolve(__dirname, "../config/.dev.env") });
 const expenseSchema = new Schema<Expense>(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    title: { type: String, required: true },
     amount: { type: Number, required: true },
     category: { type: String, required: true },
+    label: { type: String, required: true },
     date: { type: Date, required: true },
     note: { type: String, required: false },
   },
