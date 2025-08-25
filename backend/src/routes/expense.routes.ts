@@ -15,5 +15,6 @@ expenseRouter.put(
   expenseController.edit
 );
 expenseRouter.delete("/delete/:id", expenseController.delete);
+expenseRouter.get("/get/all", expenseController.getAll);
 
 export default expenseRouter;
