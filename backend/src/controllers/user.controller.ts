@@ -66,25 +66,41 @@ export class UserController {
     }
   };
 
-  getNewAccessToken = async (req: Request, res: Response) => {
-    const refresh_token = req.cookies.refresh_token;
+  getNewAccessToken = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const refresh_token = req.cookies.refresh_token;
 
-    if (!refresh_token) {
-      const response: BaseResponse = {
-        success: false,
-        message: "Refresh token missing from cookies.",
+      if (!refresh_token) {
+        const response: BaseResponse = {
+          success: false,
+          message: "Refresh token missing from cookies.",
+        };
+        return res.status(401).json(response);
+      }
+
+      const access_token = await userService.refreshAccessToken(refresh_token);
+
+      res.cookie("access_token", access_token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      const response: RefreshToken = {
+        success: true,
+        message: "New access token generated!",
+        access_token: access_token,
       };
-      return res.status(401).json(response);
+
+      return res.status(200).json(response);
+    } catch (error) {
+      next();
     }
-
-    const access_token = await userService.refreshAccessToken(refresh_token);
-
-    const response: RefreshToken = {
-      success: true,
-      message: "New access token generated!",
-      access_token: access_token,
-    };
-
-    return res.status(200).json(response);
   };
 }
