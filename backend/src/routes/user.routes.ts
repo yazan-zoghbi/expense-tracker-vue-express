@@ -7,12 +7,20 @@ import { authLogger } from "@middleware/authLogger.js";
 
 const userRouter = express.Router();
 
-userRouter.use(authLogger);
-
 const userController = new UserController();
 
-userRouter.post("/signup", validateDto(SignupDTO), userController.create);
-userRouter.post("/login", validateDto(LoginDTO), userController.login);
+userRouter.post(
+  "/signup",
+  authLogger,
+  validateDto(SignupDTO),
+  userController.create
+);
+userRouter.post(
+  "/login",
+  authLogger,
+  validateDto(LoginDTO),
+  userController.login
+);
 userRouter.get("/refresh", userController.getNewAccessToken);
 
 export default userRouter;

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useColors } from "../composables/useColors";
+import { useExpenseFormController } from "../composables/useExpenseForm";
+
+const { openForm } = useExpenseFormController();
 
 const { colors } = useColors();
 </script>
@@ -13,6 +16,7 @@ const { colors } = useColors();
       :base-color="colors.primaryLight"
       prepend-icon="mdi-plus-box-outline"
       text="Add record"
+      @click="openForm"
     >
     </v-btn>
   </v-toolbar>
