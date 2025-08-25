@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import Toolbar from "../../components/Toolbar.vue";
 import ExpensesList from "../../components/widgets/ExpensesList.vue";
+import ExpenseForm from "../../components/ExpenseForm.vue";
 </script>
 
 <template>
   <v-container class="wrapper rounded-lg ma-5">
     <Toolbar></Toolbar>
     <v-layout class="mt-5 ma-5">
+      <ExpenseForm></ExpenseForm>
       <v-row>
         <v-col cols="6">
           <ExpensesList></ExpensesList>
