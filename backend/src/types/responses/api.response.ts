@@ -7,6 +7,10 @@ export interface ApiResponse<T> extends BaseResponse {
   data?: T;
 }
 
+export interface ApiListResponse<T> extends BaseResponse {
+  data?: T[];
+}
+
 export interface LoginResponse extends BaseResponse {
   tokens: {
     access_token: string;

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mb-5" max-width="600">
+  <v-card class="mx-auto mb-5" max-width="500" min-height="600">
     <v-toolbar :color="colors.primary">
       <v-btn icon="mdi-menu"></v-btn>
 
@@ -10,107 +10,122 @@
       <v-btn icon="mdi-checkbox-marked-circle"></v-btn>
     </v-toolbar>
 
-    <v-list
-      v-model:selected="selected"
-      select-strategy="leaf"
-      :color="colors.primaryDark"
-      :base-color="colors.primary"
-    >
-      <v-list-item
-        v-for="item in items"
-        :key="item.id"
-        :value="item.id"
-        active-class="selected-item"
-        class="text-left py-3"
+    <div v-if="expensesRecords.length === 0">
+      <p class="text-body-2">No expenses found. Start by adding one above</p>
+    </div>
+    <div v-else>
+      <v-list
+        v-model:selected="selected"
+        select-strategy="leaf"
+        :color="colors.primaryDark"
+        :base-color="colors.primary"
       >
-        <div class="d-flex align-center ga-3">
-          <div>
-            <div class="pa-4 category-icon rounded-circle">
-              <v-icon class="" icon="mdi-food"></v-icon>
+        <v-list-item
+          v-for="record in expensesRecords"
+          :key="record._id"
+          :value="record._id"
+          active-class="selected-item"
+          class="text-left py-3"
+        >
+          <div class="d-flex align-center ga-3">
+            <div>
+              <div class="pa-4 category-icon rounded-circle">
+                <v-icon class="" icon="mdi-food"></v-icon>
+              </div>
+            </div>
+
+            <div>
+              <v-chip class="mb-3" rounded="lg">{{ record.label }}</v-chip>
+              <v-list-item-subtitle
+                class="mb-1 text-high-emphasis opacity-100"
+                >{{ record.title }}</v-list-item-subtitle
+              >
+
+              <v-list-item-subtitle class="text-high-emphasis">{{
+                record.note
+              }}</v-list-item-subtitle>
             </div>
           </div>
 
-          <div>
-            <v-chip class="mb-3" rounded="lg">Label</v-chip>
-            <v-list-item-subtitle class="mb-1 text-high-emphasis opacity-100">{{
-              item.headline
-            }}</v-list-item-subtitle>
+          <template v-slot:append="{ isSelected }">
+            <v-list-item-action class="flex-column ga-3 align-end">
+              <small class="text-high-emphasis opacity-60">{{
+                formatTimeDifference(record.date)
+              }}</small>
 
-            <v-list-item-subtitle class="text-high-emphasis">{{
-              item.subtitle
-            }}</v-list-item-subtitle>
-          </div>
-        </div>
+              <small class="text-high-emphasis opacity-60 text-error"
+                >USD -{{ formatAmount(record.amount) }}
+              </small>
 
-        <template v-slot:append="{ isSelected }">
-          <v-list-item-action class="flex-column align-end">
-            <small class="mb-4 text-high-emphasis opacity-60">{{
-              item.action
-            }}</small>
-
-            <v-spacer></v-spacer>
-
-            <small class="mt-4 mb-4 text-high-emphasis opacity-60 text-error"
-              >USD -{{ item.value.toLocaleString() }}
-            </small>
-          </v-list-item-action>
-        </template>
-      </v-list-item>
-    </v-list>
+              <small class="text-high-emphasis">
+                <div class="d-flex ga-3">
+                  <v-btn
+                    icon="mdi-pencil"
+                    size="sm"
+                    variant="text"
+                    @click="editForm(record)"
+                  />
+                  <v-btn
+                    class="text-error"
+                    icon="mdi-delete"
+                    size="sm"
+                    variant="text"
+                    @click="store.deleteExpense(record._id)"
+                  />
+                </div>
+              </small>
+            </v-list-item-action>
+          </template>
+        </v-list-item>
+      </v-list>
+    </div>
   </v-card>
 </template>
 
 <script setup lang="ts">
 import { useColors } from "../../composables/useColors";
 
-const { colors } = useColors();
-import { shallowRef } from "vue";
-
-const items = [
-  {
-    id: 1,
-    action: "15 min",
-    value: 5000,
-    headline: "Brunch this weekend?",
-    subtitle: `I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-    title: "Ali Connors",
-  },
-  {
-    id: 2,
-    action: "2 hr",
-    value: 5000,
-    headline: "Summer BBQ",
-    subtitle: `Wish I could come, but I'm out of town this weekend.`,
-    title: "me, Scrott, Jennifer",
-  },
-  {
-    id: 3,
-    action: "6 hr",
-    value: 5000,
-
-    headline: "Oui oui",
-    subtitle: "Do you have Paris recommendations? Have you ever been?",
-    title: "Sandra Adams",
-  },
-  {
-    id: 4,
-    action: "12 hr",
-    value: 5000,
-    headline: "Birthday gift",
-    subtitle: "Have any ideas about what we should get Heidi for her birthday?",
-    title: "Trevor Hansen",
-  },
-  {
-    id: 5,
-    action: "18hr",
-    value: 5000,
-    headline: "Recipe to try",
-    subtitle: "We should eat this: Grate, Squash, Corn, and tomatillo Tacos.",
-    title: "Britta Holt",
-  },
-];
+import { computed, onMounted, shallowRef } from "vue";
+import { useExpenseStore } from "../../stores/expenseStore";
+import { useExpenseFormController } from "../../composables/useExpenseForm";
 
 const selected = shallowRef([2]);
+
+const { colors } = useColors();
+
+const { editForm } = useExpenseFormController();
+
+const store = useExpenseStore();
+
+onMounted(() => store.loadExpenses());
+
+const expensesRecords = computed(() => store.sortedRecordsByLatest);
+
+function formatTimeDifference(recordDate: string): string {
+  const ms = new Date(recordDate).getTime() - Date.now();
+  const absMs = Math.abs(ms); // handle past/future
+  const totalSeconds = Math.floor(absMs / 1000);
+
+  const days = Math.floor(totalSeconds / (3600 * 24));
+  const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const parts = [];
+  if (days) parts.push(`${days} day${days > 1 ? "s" : ""}`);
+
+  // if (hours) parts.push(`${hours} hour${hours > 1 ? "s" : ""}`);
+  // if (minutes) parts.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
+  // if (seconds || parts.length === 0)
+  //  parts.push(`${seconds} second${seconds > 1 ? "s" : ""}`);
+
+  return ms < 0 ? `${parts.join(", ")} ago` : `in ${parts.join(", ")}`;
+}
+
+function formatAmount(amount?: number): string {
+  if (typeof amount !== "number") return "0";
+  return amount.toLocaleString();
+}
 </script>
 
 <style scoped>
