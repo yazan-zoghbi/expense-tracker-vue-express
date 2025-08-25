@@ -3,7 +3,6 @@ import { AddExpenseDTO, EditExpenseDTO } from "../types/dto/expense.dto";
 import jwt from "jsonwebtoken";
 import type { TokenPayload } from "../types/domain/payload";
 import { AuthError } from "errors/AuthError";
-import mongoose from "mongoose";
 
 export class ExpenseService {
   add = async (access_token: string, dto: AddExpenseDTO) => {
@@ -13,8 +12,10 @@ export class ExpenseService {
 
     const expenseData = {
       user: decode_payload._id,
+      title: dto.title,
       amount: dto.amount,
       category: dto.category,
+      label: dto.label,
       date: dto.date,
       note: dto.note,
     };
@@ -27,22 +28,28 @@ export class ExpenseService {
     access_token: string,
     dto: EditExpenseDTO
   ) => {
+    if (!access_token) throw new AuthError("Token not found");
+
     const decode_payload = jwt.decode(access_token) as TokenPayload;
-
-    const expense = await ExpenseModel.findById(expese_id);
-
-    if (!expense) throw new Error("Expense record not found!");
 
     const expenseData = {
       user: decode_payload._id,
+      title: dto.title,
       amount: dto.amount,
       category: dto.category,
       date: dto.date,
       note: dto.note,
     };
-    await expense.updateOne(expenseData);
 
-    return expense;
+    const updatedExpense = await ExpenseModel.findByIdAndUpdate(
+      expese_id,
+      expenseData,
+      { new: true }
+    );
+
+    if (!updatedExpense) throw new Error("Expense record not found.");
+
+    return updatedExpense;
   };
 
   delete = async (expense_id: string) => {
@@ -51,5 +58,15 @@ export class ExpenseService {
     if (!expense) throw new Error("Expense record not found!");
 
     return await expense.deleteOne();
+  };
+
+  getAll = async (access_token: string) => {
+    if (!access_token) throw new AuthError("Token not found");
+
+    const decode_payload = jwt.decode(access_token) as TokenPayload;
+
+    const expensesList = await ExpenseModel.find({ user: decode_payload._id });
+
+    return expensesList;
   };
 }
