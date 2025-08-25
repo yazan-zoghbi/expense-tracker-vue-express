@@ -5,12 +5,20 @@ import { Type } from "class-transformer";
 
 export class AddExpenseDTO {
   @IsNotEmpty()
+  @Type(() => String)
+  title!: string;
+
+  @IsNotEmpty()
   @Type(() => Number)
   amount!: number;
 
   @IsNotEmpty()
   @Type(() => String)
   category!: string;
+
+  @IsNotEmpty()
+  @Type(() => String)
+  label!: string;
 
   @IsNotEmpty()
   @Type(() => Date)
@@ -22,6 +30,10 @@ export class AddExpenseDTO {
 
 export class EditExpenseDTO {
   @IsNotEmpty()
+  @Type(() => String)
+  title!: string;
+
+  @IsNotEmpty()
   @Type(() => Number)
   amount!: number;
 
@@ -32,6 +44,10 @@ export class EditExpenseDTO {
   @IsNotEmpty()
   @Type(() => Date)
   date!: Date;
+
+  @IsNotEmpty()
+  @Type(() => String)
+  label!: string;
 
   @Type(() => String)
   note!: string;
