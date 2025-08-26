@@ -1,7 +1,7 @@
 import { ExpenseService } from "@services/expense.service";
 import type { AddExpenseDTO, EditExpenseDTO } from "../types/dto/expense.dto";
 import type { NextFunction, Request, Response } from "express";
-import { Expense } from "../types/entities/expense,entity";
+import { Expense } from "../types/entities/expense.entity";
 import {
   ApiListResponse,
   ApiResponse,
