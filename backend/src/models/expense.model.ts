@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import dotenv from "dotenv";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import type { Expense } from "../types/entities/expense,entity.ts";
+import type { Expense } from "../types/entities/expense.entity.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
