@@ -11,7 +11,7 @@ import { dirname } from "path";
 import { dbConnect } from "./config/db.config.js";
 import userRouter from "./routes/user.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-import expenseRouter from "@routes/expense.routes.js";
+import expenseRouter from "../src/routes/expense.routes";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
