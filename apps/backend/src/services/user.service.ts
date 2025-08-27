@@ -1,9 +1,12 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import type { LoginDTO, SignupDTO } from "../types/dto/user.dto.ts";
-import type { User } from "../types/entities/user.entity.ts";
-import type { TokenPayload } from "../types/domain/payload.ts";
+import type {
+  LoginDTO,
+  SignupDTO,
+} from "../../../../packages/types/src/dto/user.dto.js";
+import type { User } from "../../../../packages/types/entities/user.entity.js";
+import type { TokenPayload } from "../../../../packages/types/src/domain/payload.js";
 import { AuthError } from "../errors/AuthError.js";
 import { UserModel } from "../models/user.model.js";
 

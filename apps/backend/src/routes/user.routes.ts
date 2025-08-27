@@ -2,7 +2,7 @@ import express from "express";
 
 import { UserController } from "../controllers/user.controller.js";
 import { validateDto } from "../middleware/validate.js";
-import { LoginDTO, SignupDTO } from "types/dto/user.dto";
+import { LoginDTO, SignupDTO } from "@types/dto/user.dto";
 import { authLogger } from "@middleware/authLogger.js";
 
 const userRouter = express.Router();

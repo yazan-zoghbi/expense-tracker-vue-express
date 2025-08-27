@@ -1,13 +1,16 @@
 import type { NextFunction, Request, Response } from "express";
-import type { LoginDTO, SignupDTO } from "../types/dto/user.dto.ts";
+import type {
+  LoginDTO,
+  SignupDTO,
+} from "../../../../packages/types/src/dto/user.dto.js";
 import { UserServices } from "../services/user.service.js";
 import type {
   ApiResponse,
   BaseResponse,
   LoginResponse,
   RefreshToken,
-} from "../types/responses/api.response.ts";
-import type { User } from "../types/entities/user.entity.ts";
+} from "../../../../packages/types/src/responses/api.response.js";
+import type { User } from "../../../../packages/types/entities/user.entity.js";
 
 const userService = new UserServices();
 

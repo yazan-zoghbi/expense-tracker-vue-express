@@ -1,0 +1,13 @@
+{
+  "name": "expense-tracker-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently -n FRONTEND,BACKEND -c blue,green \"pnpm --filter frontend run dev\" \"pnpm --filter backend run dev\"",
+    "build": "pnpm -r run build",
+    "lint": "pnpm -r run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
