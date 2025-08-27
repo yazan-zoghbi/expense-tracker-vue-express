@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ES2020",
         "module": "ESNext",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "Node",
         "strict": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
@@ -16,31 +16,31 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "noEmit": false,
-        "baseUrl": "./src",
+        "baseUrl": ".",
         "paths": {
             "@config/*": [
-                "config/*"
+                "src/config/*"
             ],
             "@routes/*": [
-                "routes/*"
+                "src/routes/*"
             ],
             "@controllers/*": [
-                "controllers/*"
+                "src/controllers/*"
             ],
             "@middleware/*": [
-                "middleware/*"
+                "src/middleware/*"
             ],
             "@models/*": [
-                "models/*"
+                "src/models/*"
             ],
             "@services/*": [
-                "services/*"
-            ],
-            "@types/*": [
-                "types/*"
+                "src/services/*"
             ],
             "@utils/*": [
-                "utils/*"
+                "src/utils/*"
+            ],
+            "@types/*": [
+                "../../packages/types/src/*"
             ]
         },
     },
@@ -48,11 +48,17 @@
         "compilerOptions": {
             "module": "ESNext"
         },
-        "include": [
-            "src",
-        ],
-        "exclude": [
-            "node_modules"
-        ],
-    }
+    },
+    "include": [
+        "src",
+        "../../packages/types",
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "references": [
+        {
+            "path": "../../packages/types"
+        }
+    ]
 }

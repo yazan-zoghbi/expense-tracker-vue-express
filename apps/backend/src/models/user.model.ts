@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import mongoose, { Schema } from "mongoose";
 import dotenv from "dotenv";
 import path, { dirname } from "path";
-import type { User } from "../types/entities/user.entity.ts";
+import type { User } from "../../../../packages/types/entities/user.entity.js";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);

@@ -2,7 +2,10 @@ import express from "express";
 
 import { validateDto } from "../middleware/validate.js";
 import { ExpenseController } from "@controllers/expense.controller.js";
-import { AddExpenseDTO, EditExpenseDTO } from "../types/dto/expense.dto.js";
+import {
+  AddExpenseDTO,
+  EditExpenseDTO,
+} from "../../../../packages/types/src/dto/expense.dto.js";
 
 const expenseRouter = express.Router();
 

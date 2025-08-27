@@ -1,12 +1,15 @@
 import { ExpenseService } from "@services/expense.service";
-import type { AddExpenseDTO, EditExpenseDTO } from "../types/dto/expense.dto";
+import type {
+  AddExpenseDTO,
+  EditExpenseDTO,
+} from "../../../../packages/types/src/dto/expense.dto";
 import type { NextFunction, Request, Response } from "express";
-import { Expense } from "../types/entities/expense,entity";
+import { Expense } from "../../../../packages/types/entities/expense.entity";
 import {
   ApiListResponse,
   ApiResponse,
   BaseResponse,
-} from "../types/responses/api.response";
+} from "../../../../packages/types/src/responses/api.response";
 
 const expenseService = new ExpenseService();
 

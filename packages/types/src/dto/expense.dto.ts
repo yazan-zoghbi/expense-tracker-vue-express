@@ -1,7 +1,8 @@
 import "reflect-metadata";
 
-import { IsNotEmpty } from "class-validator";
+import { IsEnum, IsNotEmpty } from "class-validator";
 import { Type } from "class-transformer";
+import { ExpenseCategory } from "../domain/ExpenseCategory.enum";
 
 export class AddExpenseDTO {
   @IsNotEmpty()
@@ -13,8 +14,8 @@ export class AddExpenseDTO {
   amount!: number;
 
   @IsNotEmpty()
-  @Type(() => String)
-  category!: string;
+  @IsEnum(ExpenseCategory)
+  category!: ExpenseCategory;
 
   @IsNotEmpty()
   @Type(() => String)
@@ -38,8 +39,8 @@ export class EditExpenseDTO {
   amount!: number;
 
   @IsNotEmpty()
-  @Type(() => String)
-  category!: string;
+  @IsEnum(ExpenseCategory)
+  category!: ExpenseCategory;
 
   @IsNotEmpty()
   @Type(() => Date)
