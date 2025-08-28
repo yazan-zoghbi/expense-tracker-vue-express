@@ -1,8 +1,11 @@
 import { ExpenseModel } from "@models/expense.model";
-import { AddExpenseDTO, EditExpenseDTO } from "../types/dto/expense.dto";
+import {
+  AddExpenseDTO,
+  EditExpenseDTO,
+} from "../../../../packages/types/src/dto/expense.dto";
 import jwt from "jsonwebtoken";
-import type { TokenPayload } from "../types/domain/payload";
-import { AuthError } from "errors/AuthError";
+import type { TokenPayload } from "../../../../packages/types/src/domain/payload";
+import { AuthError } from "../errors/AuthError";
 
 export class ExpenseService {
   add = async (access_token: string, dto: AddExpenseDTO) => {
