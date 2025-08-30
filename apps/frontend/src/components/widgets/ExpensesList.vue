@@ -30,7 +30,7 @@
           <div class="d-flex align-center ga-3">
             <div>
               <div class="pa-4 category-icon rounded-circle">
-                <v-icon class="" icon="mdi-food"></v-icon>
+                <v-icon :icon="ExpenseCategoryIcons[record.category]"></v-icon>
               </div>
             </div>
 
@@ -85,9 +85,10 @@
 <script setup lang="ts">
 import { useColors } from "../../composables/useColors";
 
-import { computed, onMounted, shallowRef } from "vue";
+import { computed, onMounted, ref, shallowRef } from "vue";
 import { useExpenseStore } from "../../stores/expenseStore";
 import { useExpenseFormController } from "../../composables/useExpenseForm";
+import { ExpenseCategoryIcons, type ExpenseCategory } from "types";
 
 const selected = shallowRef([2]);
 
