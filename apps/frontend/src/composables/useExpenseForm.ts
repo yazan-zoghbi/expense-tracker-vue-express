@@ -1,10 +1,12 @@
 import { ref } from "vue";
 import { toast } from "vue-sonner";
 import { useExpenseStore } from "../stores/expenseStore";
+import type { ExpenseFormData } from "types";
+import type { ExpenseRecord } from "./useApi";
 
 const isFormOpen = ref(false);
 const isSubmitting = ref(false);
-const formData = ref({
+const formData = ref<ExpenseFormData>({
   title: "",
   amount: 0,
   category: "",
@@ -29,7 +31,7 @@ export function useExpenseFormController() {
     isFormOpen.value = false;
   }
 
-  function editForm(record) {
+  function editForm(record: ExpenseRecord) {
     formMode.value = "edit";
     isFormOpen.value = true;
 
