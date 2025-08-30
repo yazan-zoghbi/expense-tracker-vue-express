@@ -18,12 +18,15 @@
           prefix="$"
         ></v-number-input>
 
-        <v-text-field
+        <v-select
           v-model="formData.category"
-          type="text"
-          label="Category"
+          :items="categoryOptions"
+          item-title="label"
+          item-value="value"
+          label="Select category"
           variant="outlined"
-        />
+        ></v-select>
+
         <v-text-field
           v-model="formData.label"
           type="text"
@@ -53,7 +56,10 @@
 
 <script setup lang="ts">
 import { useExpenseFormController } from "../composables/useExpenseForm";
+import { ExpenseCategoryOptions } from "../utils/expenseCategoryOptions";
 
 const { isFormOpen, isSubmitting, formData, closeForm, submitForm } =
   useExpenseFormController();
+
+const categoryOptions = ExpenseCategoryOptions;
 </script>
