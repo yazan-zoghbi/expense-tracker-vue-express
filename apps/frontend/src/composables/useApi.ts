@@ -1,3 +1,4 @@
+import type { AddExpenseDTO, EditExpenseDTO, ExpenseCategory } from "types";
 import { toast } from "vue-sonner";
 
 export interface ExpenseRecord {
@@ -5,7 +6,7 @@ export interface ExpenseRecord {
   user: string;
   title: string;
   amount: number;
-  category: string;
+  category: ExpenseCategory;
   label: string;
   date: string;
   note: string;
@@ -52,7 +53,7 @@ export const useApi = () => {
     }
   };
 
-  const addExpense = async (data) => {
+  const addExpense = async (data: AddExpenseDTO) => {
     const response = await fetch("http://localhost:3000/expense/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -71,7 +72,7 @@ export const useApi = () => {
     return result.data;
   };
 
-  const updateExpense = async (id: string, data) => {
+  const updateExpense = async (id: string, data: EditExpenseDTO) => {
     try {
       const response = await fetch(`http://localhost:3000/expense/edit/${id}`, {
         method: "PUT",
