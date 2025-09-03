@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mb-5" max-width="500" min-height="600">
+  <v-card class="mx-auto mb-5" min-height="600" elevation="1">
     <v-toolbar :color="colors.primary">
       <v-btn icon="mdi-menu"></v-btn>
 
