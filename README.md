@@ -27,9 +27,9 @@ A full-stack expense tracker built with **Express** and **Vue 3**, featuring rea
 | ✅ Global Styling Rules     | Completed   | Unified design tokens and layout rules across components |
 | ✅ Initial Dashboard Design | Completed   | Core layout and wireframe for user-facing dashboard      |
 | ✅ Add/Edit/Delete Expense  | Completed   | Real-time transaction management with form validation    |
-| 🛠️ Expense Categories       | In Progress | Semantic tagging and filtering by category               |
-| 🔜 Monthly Summary          | Upcoming    | Aggregated insights and visual breakdowns per month      |
-| 🔜 Responsive Layout        | Upcoming    | Mobile-first design and adaptive component behavior      |
+| ✅ Expense Categories       | Completed   | Semantic tagging and filtering by category               |
+| ✅ Monthly Summary          | Completed   | Aggregated insights and visual breakdowns per month      |
+| 🛠️ Responsive Layout        | In Progress | Mobile-first design and adaptive component behavior      |
 | 🔜 Data Persistence         | Upcoming    | Long-term storage with backup and recovery support       |
 
 ---
